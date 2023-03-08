@@ -1,0 +1,69 @@
+service: InstagramBackEnd
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: admin
+  region: ap-southeast-1
+
+functions:
+  createUser:
+    handler: ./src/user/create.createUser
+    events: 
+      - http:
+          path: /userCreate/{id}/{userName}/{password}/{bio}
+          method: post
+
+  deleteUser:
+    handler: ./src/user/delete.deleteUser
+    events:
+      - http:
+          path: /userDelete/{id}
+          method: delete
+  
+  createPost:
+    handler: ./src/post/create.createPost
+    events: 
+      - http:
+          path: /postMake/{id}/{userId}/{desc}
+          method: post
+  
+  deletePost:
+    handler: ./src/post/delete.deletePost
+    events:
+      - http:
+          path: /postDelete/{id}
+          method: delete
+  
+  like:
+    handler: ./src/like/like.like
+    events:
+      - http:
+          path: /like/{id}/{likerId}
+          method: post
+  unlike:
+    handler: ./src/like/unlike.unlike
+    events:
+      - http:
+          path: /unlike/{id}
+          method: delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
