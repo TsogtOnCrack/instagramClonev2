@@ -5,36 +5,40 @@ import styles from '@/styles/Home.module.css'
 
 import axios from 'axios'
 
-import React from 'react'
+import React, { useState } from 'react'
 
 const baseURL = "https://9v1lx40li1.execute-api.ap-southeast-1.amazonaws.com/dev/userGet/@tsogt"
 
+
+
+const sendPost = async (e: any) =>{
+
+  axios.post(baseURL, {
+    data: e
+  })
+}
+
 export default function Home() {
 
-  const [post, setPost] = React.useState(null);
-  const [click, setClick] = React.useState(0);
 
-  React.useEffect(() => {
-    axios.get(baseURL).then((response) => {
-      setPost(response.data);
-    });
-  }, [click]);
+  const [file, setFile] = useState(null)
 
-  if (!post) return null;
-  return (
-    <>
-      enter File:
+  
+  return(
 
-      <input type="file" />
-      
 
-      <button onClick={()=>{
-        setClick(click+1)
-      }}>Send!</button>
+    <div>
+    <div>Hellow</div>
 
-      <p>
-        {post}
-      </p>
-          </>
+
+    <input type="file" onChange={(e)=>{
+
+      console.log(e.target.files)
+
+    }} />
+
+    <button>Send!</button>
+    </div>
+
   )
 }
