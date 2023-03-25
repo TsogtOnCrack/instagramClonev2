@@ -29,10 +29,10 @@ export const createPost = async (event: any):Promise<APIGatewayProxyResult> =>{
     return{
         statusCode: 200,
         body: JSON.stringify(err),
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true,
-        },
+        // headers: {
+        //   "Access-Control-Allow-Origin": "*",
+        //   "Access-Control-Allow-Credentials": true,
+        // },
     }
   }
 

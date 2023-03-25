@@ -1,0 +1,141 @@
+service: backEndInstagram
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: admin
+  region: ap-southeast-1
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+  createUser:
+    handler: ./src/user/create.createUser
+    events: 
+      - http:
+          path: /userCreate/{id}/{userName}/{password}/{bio}
+          method: post
+
+  deleteUser:
+    handler: ./src/user/delete.deleteUser
+    events:
+      - http:
+          path: /userDelete/{id}
+          method: delete
+
+  getUser:
+    handler: ./src/user/get.getUser
+    events: 
+      - http:
+          path: /userGet/{id}
+          method: get
+  
+  createPost:
+    handler: ./src/post/create.createPost
+    events: 
+      - http:
+          path: /postMake/{id}/{userId}/{desc}
+          method: post
+          # cors: true
+  
+  deletePost:
+    handler: ./src/post/delete.deletePost
+    events:
+      - http:
+          path: /postDelete/{id}
+          method: delete
+  
+  # like:
+  #   handler: ./src/like/like.like
+  #   events:
+  #     - http:
+  #         path: /like/{id}/{likerId}
+  #         method: post
+  unlike:
+    handler: ./src/like/unlike.unlike
+    events:
+      - http:
+          path: /unlike/{id}
+          method: delete
+
+
+# plugins:
+#   - serverless-plugin-typescript
+
+# resources:
+#   GatewayResponseDefault4XX:
+#     Type: 'AWS::ApiGateway::GatewayResponse'
+#     Properties:
+#       ResponseParameters:
+#          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+#          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+#       ResponseType: DEFAULT_4XX
+#       RestApiId:
+#         Ref: 'ApiGatewayRestApi'
+#   GatewayResponseDefault5XX:
+#     Type: 'AWS::ApiGateway::GatewayResponse'
+#     Properties:
+#       ResponseParameters:
+#          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+#          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+#       ResponseType: DEFAULT_5XX
+#       RestApiId:
+#         Ref: 'ApiGatewayRestApi'
+
+
+
+# functions:
+#   createUser:
+#     handler: ./src/user/create.createUser
+#     events: 
+#       - http:
+#           path: /userCreate/{id}/{userName}/{password}/{bio}
+#           method: post
+
+#   deleteUser:
+#     handler: ./src/user/delete.deleteUser
+#     events:
+#       - http:
+#           path: /userDelete/{id}
+#           method: delete
+
+#   getUser:
+#     handler: ./src/user/get.getUser
+#     events: 
+#       - http:
+#           path: /userGet/{id}
+#           method: get
+  
+#   createPost:
+#     handler: ./src/post/create.createPost
+#     events: 
+#       - http:
+#           path: /postMake/{id}/{userId}/{desc}
+#           method: post
+#           cors: true
+  
+#   deletePost:
+#     handler: ./src/post/delete.deletePost
+#     events:
+#       - http:
+#           path: /postDelete/{id}
+#           method: delete
+  
+#   # like:
+#   #   handler: ./src/like/like.like
+#   #   events:
+#   #     - http:
+#   #         path: /like/{id}/{likerId}
+#   #         method: post
+#   unlike:
+#     handler: ./src/like/unlike.unlike
+#     events:
+#       - http:
+#           path: /unlike/{id}
+#           method: delete

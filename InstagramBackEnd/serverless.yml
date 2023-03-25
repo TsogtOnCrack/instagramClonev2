@@ -1,8 +1,28 @@
 service: InstagramBackEnd
 frameworkVersion: '3'
 
-plugins:
-  - serverless-plugin-typescript
+# plugins:
+#   - serverless-plugin-typescript
+
+# resources:
+#   GatewayResponseDefault4XX:
+#     Type: 'AWS::ApiGateway::GatewayResponse'
+#     Properties:
+#       ResponseParameters:
+#          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+#          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+#       ResponseType: DEFAULT_4XX
+#       RestApiId:
+#         Ref: 'ApiGatewayRestApi'
+#   GatewayResponseDefault5XX:
+#     Type: 'AWS::ApiGateway::GatewayResponse'
+#     Properties:
+#       ResponseParameters:
+#          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+#          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+#       ResponseType: DEFAULT_5XX
+#       RestApiId:
+#         Ref: 'ApiGatewayRestApi'
 
 provider:
   name: aws
@@ -38,6 +58,7 @@ functions:
       - http:
           path: /postMake/{id}/{userId}/{desc}
           method: post
+          cors: true
   
   deletePost:
     handler: ./src/post/delete.deletePost
